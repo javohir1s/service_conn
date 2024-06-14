@@ -1,0 +1,57 @@
+syntax = "proto3";
+
+option go_package = "genproto/review_service";
+
+package review_service_go;
+import "google/protobuf/empty.proto";
+
+
+service ReviewService {
+    rpc Create(CreateReview) returns (GetReview) {}
+    rpc GetList(GetListReviewRequest) returns (GetListReviewResponse) {}
+    rpc Delete(ReviewPrimaryKey) returns (google.protobuf.Empty) {}
+}
+
+message ReviewPrimaryKey {
+    string id = 1;
+}
+
+message CreateReview {
+    string customer_id = 1;
+    string product_id = 2;
+    string text = 3;
+    float rating = 4;
+    string order_id = 5;
+}
+
+message GetReview {
+    string id = 1;
+    string customer_id = 2;
+    string product_id = 3;
+    string text = 4;
+    float rating = 5;
+    string order_id = 6;
+    string created_at = 7;
+}
+
+
+message UpdateReview {
+    string id = 1;
+    string customer_id = 2;
+    string product_id = 3;
+    string text = 4;
+    float rating = 5;
+    string order_id = 6;
+}
+
+message GetListReviewRequest {
+    int64 offset = 1;
+    int64 limit = 2;
+    string search = 3;
+    string product_id = 4;
+}
+
+message GetListReviewResponse {
+    int64 Count = 1;
+    repeated GetReview Reviews = 2;
+}
